@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<!-- classPathEntry location="/Users/aaron/Dev/db-derby-10.8.2.2-bin/lib/derby.jar" 
+		/ -->
+
+	<context id="MySQLTables" targetRuntime="MyBatis3">
+		<jdbcConnection driverClass="org.apache.derby.jdbc.EmbeddedDriver" 
+			connectionURL="jdbc:derby:/Users/aaron/sqzsrvdb" userId="Squeeze" 
+			password=""> </jdbcConnection>
+
+
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<javaModelGenerator targetPackage="com.smedia.sqzserver.dataservice.derby.model.base"
+			targetProject="src/main/java">
+			<property name="enableSubPackages" value="false" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<sqlMapGenerator targetPackage="com.smedia.sqzserver.dataservice.derby.model.xml.base"
+			targetProject="src/main/resources">
+			<property name="enableSubPackages" value="false" />
+		</sqlMapGenerator>
+
+		<javaClientGenerator type="MIXEDMAPPER"
+			targetPackage="com.smedia.sqzserver.dataservice.derby.dao.base" targetProject="src/main/java">
+			<property name="enableSubPackages" value="false" />
+		</javaClientGenerator>
+
+		<!--  table tableName="ALLTYPES">
+			<columnOverride column="UNSIGNED_BIGINT_FIELD"
+				javaType="java.lang.Object" jdbcType="LONG" />
+		</table -->
+
+		<table schema="SQUEEZE" delimitIdentifiers="true" delimitAllColumns="true" tableName="JobPresets" domainObjectName="JobPreset">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="SQUEEZE"  delimitIdentifiers="true" delimitAllColumns="true" tableName="Jobs" domainObjectName="Job">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="SQUEEZE" delimitIdentifiers="true" delimitAllColumns="true" tableName="Presets" domainObjectName="Preset">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="SQUEEZE" delimitIdentifiers="true" delimitAllColumns="true" tableName="Sources" domainObjectName="Source">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="SQUEEZE" delimitIdentifiers="true" delimitAllColumns="true" tableName="Status" domainObjectName="Status">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="SQUEEZE" delimitIdentifiers="true" delimitAllColumns="true" tableName="Destinations" domainObjectName="Destination">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="SQUEEZE" delimitIdentifiers="true" delimitAllColumns="true" tableName="JobOutput" domainObjectName="JobOutput">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="SQUEEZE" delimitIdentifiers="true" delimitAllColumns="true" tableName="OutputMetadata" domainObjectName="OutputMetadata">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="SQUEEZE" delimitIdentifiers="true" delimitAllColumns="true" tableName="Metadata" domainObjectName="Metadata">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="SQUEEZE" delimitIdentifiers="true" delimitAllColumns="true" tableName="ServerQueues" domainObjectName="ServerQueue">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="SQUEEZE" delimitIdentifiers="true" delimitAllColumns="true" tableName="ServerQueues" domainObjectName="ServerQueue">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="SQUEEZE" delimitIdentifiers="true" delimitAllColumns="true" tableName="WatchFolders" domainObjectName="WatchFolder">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="SQUEEZE" delimitIdentifiers="true" delimitAllColumns="true" tableName="WatchFolderSources" domainObjectName="WatchFolderSource">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="SQUEEZE" delimitIdentifiers="true" delimitAllColumns="true" tableName="WatchFolderDestinations" domainObjectName="WatchFolderDestination">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="SQUEEZE" delimitIdentifiers="true" delimitAllColumns="true" tableName="WatchFolderPresets" domainObjectName="WatchFolderPreset">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="SQUEEZE" delimitIdentifiers="true" delimitAllColumns="true" tableName="WatchFolderPlugins" domainObjectName="WatchFolderPlugin">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+		<table schema="SQUEEZE" delimitIdentifiers="true" delimitAllColumns="true" tableName="WatchFolderAttrs" domainObjectName="WatchFolderAttr">
+			<property name="useActualColumnNames" value="true" />
+		</table>
+
+	</context>
+</generatorConfiguration>

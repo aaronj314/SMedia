@@ -1,0 +1,55 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.smedia.sqzserver</groupId>
+	<artifactId>dbutil</artifactId>
+	<version>1.0</version>
+	<packaging>pom</packaging>
+	<name>DBUTIL</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.ddlutils</groupId>
+			<artifactId>ddlutils</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.18</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<inherited>false</inherited>
+				<executions>
+					<execution>
+						<id>run dbutil tasks</id>
+						<phase>package</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							 <target>
+								<taskdef name="databaseToDdl"
+									classname="org.apache.ddlutils.task.DatabaseToDdlTask">
+									<classpath refid="classpath" />
+								</taskdef>
+
+								<databaseToDdl modelName="MigrateTest">
+									<database url="jdbc:mysql://localhost:3306/Squeeze" driverClassName="com.mysql.jdbc.Driver"
+										username="root" password="root" />
+
+									<writeSchemaToFile outputFile="db-schema.xml" />
+									<writeDataToFile outputFile="data.xml" />
+								</databaseToDdl>
+							</target>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

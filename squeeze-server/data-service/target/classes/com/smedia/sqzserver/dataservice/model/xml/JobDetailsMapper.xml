@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smedia.sqzserver.dataservice.dao.JobDetailsMapper">
+	<resultMap id="JobDetailsResultMap"
+		type="com.smedia.sqzserver.dataservice.model.JobDetails">
+		<id column="JobId" jdbcType="CHAR" property="jobId" />
+		<result column="Name" jdbcType="VARCHAR" property="name" />
+		<result column="PercentCompleteOverall" jdbcType="REAL"
+			property="percentCompleteOverall" />
+		<result column="StatusStateId" jdbcType="INTEGER" property="statusStateId" />
+		<result column="TimeSubmitted" jdbcType="TIMESTAMP" property="timeSubmitted" />
+		<result column="TimeStarted" jdbcType="TIMESTAMP" property="timeStarted" />
+		<result column="TimeFinished" jdbcType="TIMESTAMP" property="timeFinished" />
+		<result column="LastPingTime" jdbcType="TIMESTAMP" property="lastPingTime" />
+		<result column="ErrorCode" jdbcType="VARCHAR" property="errorCode" />
+		<result column="StatusName" jdbcType="VARCHAR" property="statusName" />
+		<result column="StatusMessage" jdbcType="VARCHAR" property="statusMessage" />
+		<result column="InPoint" jdbcType="DOUBLE" property="inPoint" />
+		<result column="OutPoint" jdbcType="DOUBLE" property="outPoint" />
+		<result column="ThumbTime" jdbcType="DOUBLE" property="thumbTime" />
+		<result column="WatchFolderName" jdbcType="VARCHAR" property="watchFolderName" />
+		<result column="StatusState" jdbcType="VARCHAR" property="statusState" />
+		<association property="jobPreset" column="jobId" javaType="com.smedia.sqzserver.dataservice.model.base.JobPreset" 
+		select="selectJobPresets" />
+		<association property="source" column="jobId" javaType="com.smedia.sqzserver.dataservice.model.base.Source" 
+		select="selectSources" />
+		<association property="jobOutput" column="jobId" javaType="com.smedia.sqzserver.dataservice.model.base.JobOutput" 
+		select="selectJobOutputs" />
+		<collection property="destinations" column="jobId" javaType="ArrayList" select="selectDestinations" 
+			ofType="com.smedia.sqzserver.dataservice.model.base.Destination"/>
+	</resultMap>
+	
+	<select id="selectJobDetailsCount" resultType="int">
+		SELECT COUNT(*) FROM Jobs
+		<if test="not statusStateIds.isEmpty()">
+            WHERE StatusStateId IN
+            <foreach item="item" index="index" collection="statusStateIds" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+		</if>
+	</select>
+	
+	<select id="selectJobDetailsPaging" parameterType="map" resultMap="JobDetailsResultMap">
+		SELECT
+		J.JobId as JobId,
+		J.Name as Name, J.PercentCompleteOverall as PercentCompleteOverall,
+		J.StatusStateId as StatusStateId,
+		J.TimeSubmitted as TimeSubmitted
+		,J.TimeStarted as TimeStarted, J.TimeFinished as TimeFinished,
+		J.LastPingTime as LastPingTime, J.ErrorCode as ErrorCode, J.StatusName
+		as StatusName, J.StatusMessage as StatusMessage,
+		J.InPoint as InPoint,
+		J.OutPoint as OutPoint, J.ThumbTime as ThumbTime, J.WatchFolderName as
+		WatchFolderName, S.name as StatusState
+		FROM
+		Jobs as J, StatusStates as S
+		WHERE J.StatusStateId = S.StatusStateId 
+		<if test="not statusStateIds.isEmpty()">
+            AND J.StatusStateId IN
+            <foreach item="item" index="index" collection="statusStateIds" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+		</if>
+		order by J.TimeSubmitted desc 
+		LIMIT #{index}, #{pageSize}
+	</select>
+
+	<select id="selectJobDetails" resultMap="JobDetailsResultMap">
+		SELECT
+		J.JobId as JobId,
+		J.Name as Name, J.PercentCompleteOverall as PercentCompleteOverall,
+		J.StatusStateId as StatusStateId,
+		J.TimeSubmitted as TimeSubmitted
+		,J.TimeStarted as TimeStarted, J.TimeFinished as TimeFinished,
+		J.LastPingTime as LastPingTime, J.ErrorCode as ErrorCode, J.StatusName
+		as StatusName, J.StatusMessage as StatusMessage,
+		J.InPoint as InPoint,
+		J.OutPoint as OutPoint, J.ThumbTime as ThumbTime, J.WatchFolderName as
+		WatchFolderName, S.name as StatusState
+		FROM
+		Jobs as J, StatusStates as S
+		WHERE J.StatusStateId = S.StatusStateId 
+		<if test="not statusStateIds.isEmpty()">
+            AND J.StatusStateId IN
+            <foreach item="item" index="index" collection="statusStateIds" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+		</if>
+		order by J.TimeSubmitted desc 
+	</select>
+	
+	<select id="selectJobDetailsWithId" parameterType="java.lang.String" resultMap="JobDetailsResultMap">
+		SELECT
+		J.JobId as JobId,
+		J.Name as Name, J.PercentCompleteOverall as PercentCompleteOverall,
+		J.StatusStateId as StatusStateId,
+		J.TimeSubmitted as TimeSubmitted
+		,J.TimeStarted as TimeStarted, J.TimeFinished as TimeFinished,
+		J.LastPingTime as LastPingTime, J.ErrorCode as ErrorCode, J.StatusName
+		as StatusName, J.StatusMessage as StatusMessage,
+		J.InPoint as InPoint,
+		J.OutPoint as OutPoint, J.ThumbTime as ThumbTime, J.WatchFolderName as
+		WatchFolderName, S.name as StatusState
+		FROM Jobs as J, StatusStates as S
+		WHERE J.JobId = #{jobId,jdbcType=CHAR} AND J.StatusStateId = S.StatusStateId
+	</select>
+	
+	<select id="selectJobDetailsLikeName" parameterType="java.lang.String" resultMap="JobDetailsResultMap">
+		SELECT
+		J.JobId as JobId,
+		J.Name as Name, J.PercentCompleteOverall as PercentCompleteOverall,
+		J.StatusStateId as StatusStateId,
+		J.TimeSubmitted as TimeSubmitted
+		,J.TimeStarted as TimeStarted, J.TimeFinished as TimeFinished,
+		J.LastPingTime as LastPingTime, J.ErrorCode as ErrorCode, J.StatusName
+		as StatusName, J.StatusMessage as StatusMessage,
+		J.InPoint as InPoint,
+		J.OutPoint as OutPoint, J.ThumbTime as ThumbTime, J.WatchFolderName as
+		WatchFolderName
+		FROM
+		Jobs
+		as J
+		order by J.TimeSubmitted desc 
+		WHERE name like concat('%',#{name,jdbcType=CHAR},'%')
+	</select>
+	
+	<select id="selectJobPresets" parameterType="java.lang.String" resultType="com.smedia.sqzserver.dataservice.model.base.JobPreset">
+	select * from JobPresets WHERE JobId = #{jobId,jdbcType=CHAR}
+	</select>
+	<select id="selectSources" parameterType="java.lang.String" resultType="com.smedia.sqzserver.dataservice.model.base.Source">
+	select * from Sources WHERE JobId = #{jobId,jdbcType=CHAR}
+	</select>
+	
+	<select id="selectDestinations" parameterType="java.lang.String" resultType="com.smedia.sqzserver.dataservice.model.base.Destination">
+	select * from Destinations WHERE JobId = #{jobId,jdbcType=CHAR}
+	</select>
+	
+	<select id="selectJobOutputs" parameterType="java.lang.String" resultType="com.smedia.sqzserver.dataservice.model.base.JobOutput">
+	select * from JobOutput WHERE JobId = #{jobId,jdbcType=CHAR}
+	</select>
+
+	<select id="selectAverageEncodeTime" resultType="float">
+	    select avg(timediff(TimeFinished, TimeStarted)) from Jobs where TimeFinished is not null and TimeStarted is not null;
+    </select>
+	
+</mapper>

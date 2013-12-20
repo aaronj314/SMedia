@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smedia.sqzserver.dataservice.dao.WatchFolderDetailsMapper">
+  <resultMap id="WatchFolderDeatailsMap" type="com.smedia.sqzserver.dataservice.model.WatchFolderDetails">
+    <id column="WatchFolderId" jdbcType="CHAR" property="watchFolderId" />
+    <result column="Name" jdbcType="VARCHAR" property="name" />
+    <result column="LastScanStart" jdbcType="TIMESTAMP" property="lastScanStart" />
+    <result column="LastScanEnd" jdbcType="TIMESTAMP" property="lastScanEnd" />
+    <result column="LastScanNumberJobsCreated" jdbcType="INTEGER" property="lastScanNumberJobsCreated" />
+    <result column="LastScanServerName" jdbcType="VARCHAR" property="lastScanServerName" />
+    <result column="CurrentScanServerId" jdbcType="CHAR" property="currentScanServerId" />
+    <result column="CurrentScanStart" jdbcType="TIMESTAMP" property="currentScanStart" />
+    <result column="LastScanOldestFileTimeTicks" jdbcType="BIGINT" property="lastScanOldestFileTimeTicks" />
+    <result column="LastScanNewestFileTimeTicks" jdbcType="BIGINT" property="lastScanNewestFileTimeTicks" />
+    <result column="Enabled" jdbcType="BIT" property="enabled" />
+    <result column="Deleted" jdbcType="BIT" property="deleted" />
+    <result column="Created" jdbcType="TIMESTAMP" property="created" />
+    <result column="Modified" jdbcType="TIMESTAMP" property="modified" />
+    <result column="QueueId" jdbcType="CHAR" property="queueId" />
+    <result column="Message" jdbcType="VARCHAR" property="message" />
+    <result column="DeepScan" jdbcType="BIT" property="deepScan" />
+    <association property="jobPreset" column="WatchFolderId" javaType="com.smedia.sqzserver.dataservice.model.base.WatchFolderPreset" 
+		select="selectJobPresets" />
+    <association property="preset" column="WatchFolderId" javaType="com.smedia.sqzserver.dataservice.model.base.Preset" 
+		select="selectPreset" />
+	<association property="source" column="WatchFolderId" javaType="com.smedia.sqzserver.dataservice.model.base.WatchFolderSource" 
+		select="selectSources" />
+	<collection property="destinations" column="WatchFolderId" javaType="ArrayList" 
+		ofType="com.smedia.sqzserver.dataservice.model.base.WatchFolderDestination" select="selectDestinations" />
+		
+	<!-- association property="phaseListeners" column="WatchFolderId" select="selectPlugins"/>
+	<association property="attributes" column="WatchFolderId" select="selectAttrs"/ -->
+   </resultMap>
+  
+  
+	<select id="selectWatchFolderDetails" resultMap="WatchFolderDeatailsMap">
+	SELECT
+		w.WatchFolderId as WatchFolderId,
+        w.Name as Name,
+        w.LastScanStart as LastScanStart,
+        w.LastScanEnd as LastScanEnd,
+        w.LastScanNumberJobsCreated as LastScanNumberJobsCreated,
+       w.LastScanServerName as LastScanServerName,
+        w.CurrentScanServerId as CurrentScanServerId,
+        w.CurrentScanStart as CurrentScanStart,
+        w.LastScanOldestFileTimeTicks as LastScanOldestFileTimeTicks,
+        w.LastScanNewestFileTimeTicks as LastScanNewestFileTimeTicks,
+        w.Enabled as Enabled,
+        w.Deleted as Deleted,
+        w.Created as Created,
+        w.Modified as Modified,
+        w.QueueId as QueueId,
+        w.Message as Message,
+        w.DeepScan as DeepScan
+		FROM
+		WatchFolders as w
+		
+	</select>
+	
+	<select id="selectWatchFolderDetailsPaging" parameterType="map" resultMap="WatchFolderDeatailsMap">
+		SELECT
+		w.WatchFolderId as WatchFolderId,
+        w.Name as Name,
+        w.LastScanStart as LastScanStart,
+        w.LastScanEnd as LastScanEnd,
+        w.LastScanNumberJobsCreated as LastScanNumberJobsCreated,
+       w.LastScanServerName as LastScanServerName,
+        w.CurrentScanServerId as CurrentScanServerId,
+        w.CurrentScanStart as CurrentScanStart,
+        w.LastScanOldestFileTimeTicks as LastScanOldestFileTimeTicks,
+        w.LastScanNewestFileTimeTicks as LastScanNewestFileTimeTicks,
+        w.Enabled as Enabled,
+        w.Deleted as Deleted,
+        w.Created as Created,
+        w.Modified as Modified,
+        w.QueueId as QueueId,
+        w.Message as Message,
+        w.DeepScan as DeepScan
+		FROM
+		WatchFolders as w
+		LIMIT #{index}, #{pageSize}
+	</select>
+	
+	
+	<select id="selectWatchFolderDetailsWithId"    parameterType="java.lang.String" resultMap="WatchFolderDeatailsMap">
+	SELECT
+		w.WatchFolderId as WatchFolderId,
+        w.Name as Name,
+        w.LastScanStart as LastScanStart,
+        w.LastScanEnd as LastScanEnd,
+        w.LastScanNumberJobsCreated as LastScanNumberJobsCreated,
+       w.LastScanServerName as LastScanServerName,
+        w.CurrentScanServerId as CurrentScanServerId,
+        w.CurrentScanStart as CurrentScanStart,
+        w.LastScanOldestFileTimeTicks as LastScanOldestFileTimeTicks,
+        w.LastScanNewestFileTimeTicks as LastScanNewestFileTimeTicks,
+        w.Enabled as Enabled,
+        w.Deleted as Deleted,
+        w.Created as Created,
+        w.Modified as Modified,
+        w.QueueId as QueueId,
+        w.Message as Message,
+        w.DeepScan as DeepScan
+		FROM
+		WatchFolders
+		as w
+		WHERE w.WatchFolderId = #{watchFolderId,jdbcType=CHAR}
+	</select>
+	
+	<select id="selectWatchFolderDetailsLikeName"    parameterType="java.lang.String" resultMap="WatchFolderDeatailsMap">
+	SELECT
+		w.WatchFolderId as WatchFolderId,
+        w.Name as Name,
+        w.LastScanStart as LastScanStart,
+        w.LastScanEnd as LastScanEnd,
+        w.LastScanNumberJobsCreated as LastScanNumberJobsCreated,
+       w.LastScanServerName as LastScanServerName,
+        w.CurrentScanServerId as CurrentScanServerId,
+        w.CurrentScanStart as CurrentScanStart,
+        w.LastScanOldestFileTimeTicks as LastScanOldestFileTimeTicks,
+        w.LastScanNewestFileTimeTicks as LastScanNewestFileTimeTicks,
+        w.Enabled as Enabled,
+        w.Deleted as Deleted,
+        w.created as Created,
+        w.Modified as Modified,
+        w.QueueId as QueueId,
+        w.Message as Message,
+        w.DeepScan as DeepScan
+		FROM
+		WatchFolders
+		as w
+		WHERE name like concat('%',#{name,jdbcType=CHAR},'%')
+	</select>
+
+  	<select id="selectJobPresets" parameterType="java.lang.String" resultType="com.smedia.sqzserver.dataservice.model.base.WatchFolderPreset">
+		select * from WatchFolderPresets WHERE WatchFolderId = #{WatchFolderId,jdbcType=CHAR}
+	</select>
+    <select id="selectPreset" parameterType="java.lang.String" resultType="com.smedia.sqzserver.dataservice.model.base.Preset">
+    	select p.* from Presets p left join WatchFolderPresets w on p.PresetId = w.PresetId WHERE w.WatchFolderId = #{WatchFolderId,jdbcType=CHAR}
+    </select>
+	<select id="selectSources" parameterType="java.lang.String" resultType="com.smedia.sqzserver.dataservice.model.base.WatchFolderSource">
+		select * from WatchFolderSources WHERE WatchFolderId = #{WatchFolderId,jdbcType=CHAR}
+	</select>
+	
+	<select id="selectDestinations" parameterType="java.lang.String" resultType="com.smedia.sqzserver.dataservice.model.base.WatchFolderDestination">
+		select * from WatchFolderDestinations WHERE WatchFolderId = #{WatchFolderId,jdbcType=CHAR}
+	</select>
+	
+	<select id="selectPlugins" parameterType="map" resultType="com.smedia.sqzserver.dataservice.model.base.WatchFolderPlugin">
+		select * from WatchFolderPlugins WHERE WatchFolderId = #{WatchFolderId,jdbcType=CHAR}
+	</select>
+	
+	<select id="selectAttrs" parameterType="map" resultType="com.smedia.sqzserver.dataservice.model.base.WatchFolderAttr">
+		select * from WatchFolderAttrs WHERE WatchFolderId = #{WatchFolderId,jdbcType=CHAR}
+	</select>
+</mapper>

@@ -1,0 +1,32 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1344002072929
+Build-Jdk: 1.6.0_33
+Built-By: aaron
+Bundle-Category: Squeeze Server
+Bundle-ClassPath: .,commons-io-2.1.jar,commons-httpclient-3.1.jar,bcprov
+ -jdk15-140.jar,junit-4.4.jar
+Bundle-ManifestVersion: 2
+Bundle-Name: Common
+Bundle-SymbolicName: common-sqz
+Bundle-Version: 0.0.1.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Embed-Dependency: commons-io;scope=compile|runtime;inline=false,commons-
+ httpclient;scope=compile|runtime;inline=false,bcprov-jdk15;scope=compil
+ e|runtime;inline=false,junit;scope=compile|runtime;inline=false
+Embedded-Artifacts: commons-io-2.1.jar;g="commons-io";a="commons-io";v="
+ 2.1",commons-httpclient-3.1.jar;g="commons-httpclient";a="commons-httpc
+ lient";v="3.1",bcprov-jdk15-140.jar;g="bouncycastle";a="bcprov-jdk15";v
+ ="140",junit-4.4.jar;g="junit";a="junit";v="4.4"
+Export-Package: com.smedia.sqzserver.common.config;version="0.0.1.SNAPSH
+ OT",com.smedia.sqzserver.common.osgi;uses:="org.osgi.framework";version
+ ="0.0.1.SNAPSHOT",com.smedia.sqzserver.common.util;uses:="javax.xml.tra
+ nsform,javax.xml.transform.stream,javax.xml.parsers,javax.xml.transform
+ .dom,org.w3c.dom,org.xml.sax";version="0.0.1.SNAPSHOT"
+Import-Package: javax.crypto,javax.crypto.interfaces,javax.crypto.spec,j
+ avax.naming,javax.naming.directory,javax.net,javax.net.ssl,javax.securi
+ ty.auth.x500,javax.xml.parsers,javax.xml.transform,javax.xml.transform.
+ dom,javax.xml.transform.stream,org.apache.commons.codec;version="[1.4,2
+ )",org.apache.commons.codec.binary;version="[1.4,2)",org.apache.commons
+ .codec.net;version="[1.4,2)",org.apache.commons.logging,org.osgi.framew
+ ork;version="[1.5,2)",org.w3c.dom,org.xml.sax
+Tool: Bnd-1.50.0

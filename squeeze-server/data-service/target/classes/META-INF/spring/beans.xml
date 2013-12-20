@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:jaxrs="http://cxf.apache.org/jaxrs" xmlns:osgi="http://www.springframework.org/schema/osgi"
+	xmlns:osgix="http://www.springframework.org/schema/osgi-compendium"
+	xsi:schemaLocation="http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd
+		 http://www.springframework.org/schema/osgi-compendium http://www.springframework.org/schema/osgi-compendium/spring-osgi-compendium.xsd">
+	
+	
+	<osgix:cm-properties id="props" persistent-id="com.smedia.sqzserver.db">
+		<prop key="url">jdbc:mysql://localhost:3306/Squeeze</prop>
+        <prop key="username">root</prop>
+        <prop key="password">root</prop>
+    </osgix:cm-properties>
+    <context:property-placeholder properties-ref="props"></context:property-placeholder>
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="${url}" />
+		<property name="validationQuery" value="SELECT 1" />
+		<property name="username" value="${username}" />
+		<property name="password" value="${password}" />
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations" value="classpath*:com/smedia/sqzserver/dataservice/model/xml/**/*.xml" />
+		<property name="transactionFactory">
+    		<bean class="org.apache.ibatis.transaction.managed.ManagedTransactionFactory" />
+  		</property>  
+	</bean>
+	
+	<bean id="licenseKeyMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.smedia.sqzserver.dataservice.dao.base.LicenseKeyMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+
+	<bean id="jobDetailsMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.smedia.sqzserver.dataservice.dao.JobDetailsMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+
+	<bean id="jobMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.smedia.sqzserver.dataservice.dao.base.JobMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	<bean id="serverQueueMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.smedia.sqzserver.dataservice.dao.base.ServerQueueMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	<bean id="presetMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.smedia.sqzserver.dataservice.dao.base.PresetMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	<bean id="destMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.smedia.sqzserver.dataservice.dao.base.DestinationMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	<bean id="sourceMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.smedia.sqzserver.dataservice.dao.base.SourceMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	<bean id="jobPresetMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.smedia.sqzserver.dataservice.dao.base.JobPresetMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	<bean id="watchFolderMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.smedia.sqzserver.dataservice.dao.base.WatchFolderMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	<bean id="statusMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.smedia.sqzserver.dataservice.dao.base.StatusMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	<bean id="jobOutputMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.smedia.sqzserver.dataservice.dao.base.JobOutputMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	<bean id="outputMetaDataMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.smedia.sqzserver.dataservice.dao.base.OutputMetadataMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<bean id="metadataMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.smedia.sqzserver.dataservice.dao.base.MetadataMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<bean id="applicationSettingsMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.smedia.sqzserver.dataservice.dao.base.ApplicationSettingsMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<bean id="serversMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.smedia.sqzserver.dataservice.dao.base.ServersMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<bean id="jobQueuesMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.smedia.sqzserver.dataservice.dao.base.JobQueuesMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<bean id="serverStatesMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.smedia.sqzserver.dataservice.dao.base.ServerStatesMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<bean id="watchFolderDetailsMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.smedia.sqzserver.dataservice.dao.WatchFolderDetailsMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<bean id="watchFolderSourceMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.smedia.sqzserver.dataservice.dao.base.WatchFolderSourceMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<bean id="watchFolderDestinationMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.smedia.sqzserver.dataservice.dao.base.WatchFolderDestinationMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<bean id="watchFolderPresetMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.smedia.sqzserver.dataservice.dao.base.WatchFolderPresetMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<bean id="watchFolderPluginMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.smedia.sqzserver.dataservice.dao.base.WatchFolderPluginMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<bean id="watchFolderAttrMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.smedia.sqzserver.dataservice.dao.base.WatchFolderAttrMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<bean id="workflowCategoryMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.smedia.sqzserver.dataservice.dao.base.WorkflowCategoryMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<bean id="presetExtMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface"
+			value="com.smedia.sqzserver.dataservice.dao.PresetExtMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	
+	<bean id="dataService" class="com.smedia.sqzserver.dataservice.impl.DataServiceImpl">
+		<property name="licenseKeyMapper" ref="licenseKeyMapper" />
+		<property name="presetExtMapper" ref="presetExtMapper" />
+		<property name="jobDetailsMapper" ref="jobDetailsMapper" />
+		<property name="watchFolderMapper" ref="watchFolderMapper" />
+		<property name="statusMapper" ref="statusMapper" />
+		<property name="jobMapper" ref="jobMapper" />
+		<property name="serverQueueMapper" ref="serverQueueMapper" />
+		<property name="presetMapper" ref="presetMapper" />
+		<property name="destinationMapper" ref="destMapper" />
+		<property name="sourceMapper" ref="sourceMapper" />
+		<property name="jobPresetMapper" ref="jobPresetMapper" />
+		<property name="jobOutputMapper" ref="jobOutputMapper" />
+		<property name="outputMetaDataMapper" ref="outputMetaDataMapper" />
+		<property name="metadataMapper" ref="metadataMapper" />
+		<property name="applicationSettingsMapper" ref="applicationSettingsMapper" />
+		<property name="serversMapper" ref="serversMapper" />
+		<property name="jobQueuesMapper" ref="jobQueuesMapper" />
+		<property name="serverStatesMapper" ref="serverStatesMapper" />
+		<property name="watchFolderDetailsMapper" ref="watchFolderDetailsMapper" />
+		<property name="watchFolderSourceMapper" ref="watchFolderSourceMapper" />
+		<property name="watchFolderDestinationMapper" ref="watchFolderDestinationMapper" />
+		<property name="watchFolderPresetMapper" ref="watchFolderPresetMapper" />
+		<property name="watchFolderPluginMapper" ref="watchFolderPluginMapper" />
+		<property name="watchFolderAttrMapper" ref="watchFolderAttrMapper" />
+		<property name="workflowCategoryMapper" ref="workflowCategoryMapper" />
+	</bean>
+	
+	<osgi:service id="dataOsgiService" ref="dataService"
+		interface="com.smedia.sqzserver.dataservice.DataService">
+		<registration-listener registration-method="serviceRegistered">
+			<bean
+				class="com.smedia.sqzserver.dataservice.impl.OsgiRegistrationListener" />
+		</registration-listener>
+	</osgi:service>
+</beans>

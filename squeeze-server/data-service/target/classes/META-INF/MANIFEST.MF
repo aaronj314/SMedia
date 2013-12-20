@@ -1,0 +1,39 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1344002071998
+Build-Jdk: 1.6.0_33
+Built-By: aaron
+Bundle-Category: Squeeze Server
+Bundle-ManifestVersion: 2
+Bundle-Name: Data Service
+Bundle-SymbolicName: data-service
+Bundle-Version: 0.0.1.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Export-Package: com.smedia.sqzserver.dataservice;uses:="com.smedia.sqzse
+ rver.dataservice.model,com.smedia.sqzserver.dataservice.model.base";ver
+ sion="0.0.1.SNAPSHOT",com.smedia.sqzserver.dataservice.model;uses:="jav
+ ax.xml.bind.annotation,com.smedia.sqzserver.dataservice.model.base,org.
+ apache.ibatis.annotations,org.apache.ibatis.session";version="0.0.1.SNA
+ PSHOT",com.smedia.sqzserver.dataservice.model.xml.base;version="0.0.1.S
+ NAPSHOT",com.smedia.sqzserver.dataservice.model.xml;version="0.0.1.SNAP
+ SHOT",com.smedia.sqzserver.dataservice.model.base;uses:="javax.xml.bind
+ .annotation";version="0.0.1.SNAPSHOT",com.smedia.sqzserver.dataservice.
+ model.oldApi;uses:="javax.xml.bind.annotation,javax.xml.bind";version="
+ 0.0.1.SNAPSHOT",com.smedia.sqzserver.dataservice.impl;uses:="com.smedia
+ .sqzserver.dataservice,org.apache.ibatis.session,com.smedia.sqzserver.d
+ ataservice.model,com.smedia.sqzserver.dataservice.model.base,com.smedia
+ .sqzserver.dataservice.dao.base,com.smedia.sqzserver.dataservice.dao,or
+ g.apache.log4j";version="0.0.1.SNAPSHOT",com.smedia.sqzserver.dataservi
+ ce.dao.base;uses:="org.apache.ibatis.annotations,com.smedia.sqzserver.d
+ ataservice.model.base";version="0.0.1.SNAPSHOT",com.smedia.sqzserver.da
+ taservice.dao;uses:="org.apache.ibatis.annotations,com.smedia.sqzserver
+ .dataservice.model,com.smedia.sqzserver.dataservice.model.base,org.apac
+ he.ibatis.session";version="0.0.1.SNAPSHOT"
+Import-Package: javax.xml.bind,javax.xml.bind.annotation,org.apache.comm
+ ons.dbcp;version="[1.4,2)",org.apache.ibatis.annotations;version="[3.0,
+ 4)",org.apache.ibatis.session;version="[3.0,4)",org.apache.ibatis.trans
+ action.managed;version="[3.0,4)",org.apache.log4j;version="[1.2,2)",org
+ .mybatis.spring;version="[1.0,2)",org.mybatis.spring.mapper;version="[1
+ .0,2)",org.springframework.jdbc.datasource;version="[3.0,4)"
+Require-Bundle: com.mysql.jdbc,org.apache.commons.dbcp,org.mybatis.mybat
+ is,org.springframework.beans
+Tool: Bnd-1.50.0

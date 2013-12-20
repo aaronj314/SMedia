@@ -1,0 +1,8 @@
+LIBRARY   AvidMediaToolkit
+EXPORTS
+	ACFRegisterPlugin		@1
+	ACFRegisterComponent	@2
+	ACFGetClassFactory		@3
+	ACFCanUnloadNow			@4
+	ACFStartup				@5
+	ACFShutdown				@6

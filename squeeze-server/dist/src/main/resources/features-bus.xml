@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<features name="squeeze-server" version="1.7.0" resolver="(obr)">
+	<feature name='sqz-srv-bus' version='0.0.1-SNAPSHOT'>
+		<feature version="5.5.1">activemq</feature>
+		<!-- feature version="5.5.1">activemq-spring</feature> -->
+		<feature version="5.5.1">activemq-blueprint</feature>
+		<bundle start-level='70' start='true'>mvn:com.smedia.sqzserver/sqz-srv-bus/0.0.1-SNAPSHOT</bundle>
+	</feature>
+	<feature name='cxf-mysql-fragment' version='0.0.1-SNAPSHOT'>
+		<bundle>mvn:mysql/mysql-connector-java/5.1.18</bundle>
+		<bundle>mvn:com.smedia.sqzserver/cxf-mysql-fragment/0.0.1-SNAPSHOT
+		</bundle>
+	</feature>
+	<feature name='common-sqz' version='0.0.1-SNAPSHOT'>
+		<bundle start-level='80' start='true'>mvn:com.smedia.sqzserver/common-sqz/0.0.1-SNAPSHOT
+		</bundle>
+	</feature>
+	<feature name='sqz-rest-client' version='0.0.1-SNAPSHOT'>
+		<bundle start-level='80' start='true'>mvn:com.smedia.sqzserver/sqz-rest-client/0.0.1-SNAPSHOT</bundle>
+	</feature>
+	<feature name='data-service' version='0.0.1-SNAPSHOT'>
+	<!-- 
+		<bundle>mvn:org.springframework.batch/spring-batch-core/2.1.8.RELEASE</bundle>
+		<bundle>mvn:org.springframework.batch/spring-batch-infrastructure/2.1.8.RELEASE</bundle>
+		 -->
+		<bundle>mvn:mysql/mysql-connector-java/5.1.18</bundle>
+		<bundle>mvn:org.mybatis/mybatis/3.0.6</bundle>
+		<bundle>mvn:org.mybatis/mybatis-spring/1.0.2</bundle>
+		<bundle>mvn:commons-pool/commons-pool/1.5.4</bundle>
+		<bundle>mvn:commons-dbcp/commons-dbcp/1.4</bundle>
+		<feature version='3.0.6.RELEASE'>spring</feature>
+		<feature version='3.0.6.RELEASE'>spring-jdbc</feature>
+		<feature version='3.0.6.RELEASE'>spring-tx</feature>
+		<bundle start-level='80' start='true'>mvn:com.smedia.sqzserver/data-service/0.0.1-SNAPSHOT
+		</bundle>
+	</feature>
+	<feature name='orchestration' version='0.0.1-SNAPSHOT'>
+		<feature version='2.9.0'>camel-core</feature>
+		<feature version='2.9.0'>camel-spring</feature>
+		<feature version='2.9.0'>camel-jms</feature>
+		<feature version='2.9.0'>camel-cxf</feature>
+		<feature version='2.9.0'>camel-paxlogging</feature>
+		<feature version='2.9.0'>camel-xstream</feature>
+		<feature version='0.0.1-SNAPSHOT'>data-service</feature>
+		<feature version='0.0.1-SNAPSHOT'>common-sqz</feature>
+		<feature version='0.0.1-SNAPSHOT'>sqz-rest-client</feature>
+		<feature version='0.0.1-SNAPSHOT'>sqz-srv-bus</feature>
+		<bundle>mvn:org.apache.camel/camel-core-osgi/2.9.0</bundle>
+		<bundle>mvn:org.apache.activemq/activemq-camel/5.5.1</bundle>
+		<bundle start-level='70' start='true'>mvn:org.osgi/org.osgi.compendium/4.2.0
+		</bundle>
+		<bundle start-level='80' start='true'>mvn:com.smedia.sqzserver/orchestration/0.0.1-SNAPSHOT
+		</bundle>
+	</feature>
+	<feature name='import-service' version='0.0.1-SNAPSHOT'>
+		<bundle>mvn:org.apache.httpcomponents/httpcore-osgi/4.1.4</bundle>
+		<bundle>mvn:org.apache.httpcomponents/httpclient-osgi/4.1.3</bundle>
+		<bundle>mvn:commons-codec/commons-codec/1.4</bundle>
+		<feature version='0.0.1-SNAPSHOT'>orchestration</feature>
+		<bundle start-level='80' start='true'>mvn:com.smedia.sqzserver/import-service/0.0.1-SNAPSHOT
+		</bundle>
+	</feature>
+	<feature name='encode-service' version='0.0.1-SNAPSHOT'>
+		<feature version='0.0.1-SNAPSHOT'>orchestration</feature>
+		<bundle start-level='80' start='true'>mvn:com.smedia.sqzserver/encode-service/0.0.1-SNAPSHOT
+		</bundle>
+	</feature>
+	<feature name='publish-service' version='0.0.1-SNAPSHOT'>
+		<bundle>mvn:org.apache.httpcomponents/httpcore-osgi/4.1.4</bundle>
+		<bundle>mvn:org.apache.httpcomponents/httpclient-osgi/4.1.3</bundle>
+		<bundle>mvn:commons-codec/commons-codec/1.4</bundle>
+		<feature version='0.0.1-SNAPSHOT'>orchestration</feature>
+		<bundle start-level='80' start='true'>mvn:com.smedia.sqzserver/publish-service/0.0.1-SNAPSHOT
+		</bundle>
+	</feature>
+	<feature name='rest-api' version='0.0.1-SNAPSHOT'>
+		<bundle>mvn:javax.ws.rs/jsr311-api/1.1.1</bundle>
+		<feature version='2.5.2'>cxf</feature>
+		<feature version='2.2.4'>war</feature>
+		<feature version='0.0.1-SNAPSHOT'>orchestration</feature>
+		<bundle start-level='80' start='true'>mvn:com.smedia.sqzserver/rest-api/0.0.1-SNAPSHOT
+		</bundle>
+	</feature>
+	<feature name='web-ui' version='0.0.1-SNAPSHOT'>
+		<feature version='0.0.1-SNAPSHOT'>rest-api</feature>
+		<bundle start-level='80' start='true'>mvn:com.smedia.sqzserver/web-ui/0.0.1-SNAPSHOT/war
+		</bundle>
+	</feature>
+	<feature name='squeeze-server-all' version='1.7.0'>
+		<feature version='0.0.1-SNAPSHOT'>sqz-srv-bus</feature>
+		<feature version='0.0.1-SNAPSHOT'>cxf-mysql-fragment</feature>
+		<feature version='0.0.1-SNAPSHOT'>common-sqz</feature>
+		<feature version='0.0.1-SNAPSHOT'>sqz-rest-client</feature>
+		<feature version='0.0.1-SNAPSHOT'>data-service</feature>
+		<feature version='0.0.1-SNAPSHOT'>orchestration</feature>
+		<feature version='0.0.1-SNAPSHOT'>import-service</feature>
+		<feature version='0.0.1-SNAPSHOT'>encode-service</feature>
+		<feature version='0.0.1-SNAPSHOT'>publish-service</feature>
+		<feature version='0.0.1-SNAPSHOT'>rest-api</feature>
+		<feature version='0.0.1-SNAPSHOT'>web-ui</feature>
+	</feature>
+</features>

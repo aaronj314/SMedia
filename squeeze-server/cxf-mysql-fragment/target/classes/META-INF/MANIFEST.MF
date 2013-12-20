@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1344002056811
+Build-Jdk: 1.6.0_33
+Built-By: aaron
+Bundle-Category: Squeeze Server
+Bundle-ManifestVersion: 2
+Bundle-Name: CXF MySQL Fragment
+Bundle-SymbolicName: cxf-mysql-fragment
+Bundle-Version: 0.0.1.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Fragment-Host: org.apache.cxf.bundle
+Import-Package: com.mysql.jdbc;version="[5.1,6)"
+Tool: Bnd-1.50.0

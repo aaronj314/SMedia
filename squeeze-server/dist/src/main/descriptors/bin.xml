@@ -1,0 +1,110 @@
+<assembly>
+
+	<id>bin</id>
+
+	<formats>
+		<format>tar.gz</format>
+		<format>dir</format>
+	</formats>
+
+	<fileSets>
+
+		<!-- Expanded Karaf Standard Distribution -->
+		<fileSet>
+			<directory>target/dependencies/apache-karaf-2.2.4</directory>
+			<outputDirectory>/</outputDirectory>
+			<excludes>
+				<exclude>**/demos/**</exclude>
+				<exclude>bin/**</exclude>
+				<exclude>etc/system.properties</exclude>
+				<exclude>etc/custom.properties</exclude>
+				<exclude>etc/users.properties</exclude>
+				<exclude>etc/jre.properties</exclude>
+				<exclude>etc/org.apache.karaf.features.cfg</exclude>
+				<exclude>etc/org.ops4j.pax.logging.cfg</exclude>
+				<exclude>LICENSE</exclude>
+				<exclude>NOTICE</exclude>
+				<exclude>README</exclude>
+				<exclude>RELEASE-NOTES</exclude>
+				<exclude>karaf-manual*.html</exclude>
+				<exclude>karaf-manual*.pdf</exclude>
+			</excludes>
+		</fileSet>
+
+		<!-- Copy over bin/* separately to get the correct file mode -->
+		<fileSet>
+			<directory>target/dependencies/apache-karaf-2.2.4</directory>
+			<outputDirectory>/</outputDirectory>
+			<includes>
+				<include>bin/admin</include>
+				<include>bin/karaf</include>
+				<include>bin/start</include>
+				<include>bin/stop</include>
+			</includes>
+			<fileMode>0755</fileMode>
+		</fileSet>
+
+		<!-- Copy over jar files -->
+		<fileSet>
+			<directory>target/dependencies</directory>
+			<includes>
+				<include>sqzsrv-branding.jar</include>
+			</includes>
+			<outputDirectory>/lib/</outputDirectory>
+		</fileSet>
+
+		<fileSet>
+			<directory>src/main/distribution</directory>
+			<outputDirectory>/</outputDirectory>
+			<excludes>
+				<exclude>windows/**</exclude>
+			</excludes>
+			<lineEnding>unix</lineEnding>
+			<fileMode>0644</fileMode>
+		</fileSet>
+		<fileSet>
+			<directory>target/classes/etc</directory>
+			<outputDirectory>/etc/</outputDirectory>
+			<lineEnding>unix</lineEnding>
+			<fileMode>0644</fileMode>
+		</fileSet>
+
+		<fileSet>
+			<directory>target/features-repo</directory>
+			<outputDirectory>/system</outputDirectory>
+		</fileSet>
+		<!-- copy smicomp OSX version 
+		<fileSet>
+			<directory>/Users/aaron/Dev/squeeze/osx</directory>
+			<outputDirectory>/squeeze/osx</outputDirectory>
+			<fileMode>0755</fileMode>
+		</fileSet>
+		-->
+	</fileSets>
+
+	<files>
+		<file>
+			<source>target/dependencies/apache-karaf-2.2.4/bin/karaf</source>
+			<outputDirectory>/bin/</outputDirectory>
+			<destName>my-custom</destName>
+			<fileMode>0755</fileMode>
+			<lineEnding>unix</lineEnding>
+		</file>
+		<file>
+			<source>src/main/resources/features-bus.xml</source>
+			<outputDirectory>/system/com/smedia/sqzserver/features/1.7.0</outputDirectory>
+			<destName>features-1.7.0-features.xml</destName>
+			<fileMode>0644</fileMode>
+			<lineEnding>unix</lineEnding>
+		</file>
+		
+		<file>
+			<source>src/main/distribution/bin/karaf-debug</source>
+			<outputDirectory>/bin/</outputDirectory>
+			<destName>debug</destName>
+			<fileMode>0755</fileMode>
+			<lineEnding>unix</lineEnding>
+		</file>
+	</files>
+
+</assembly>

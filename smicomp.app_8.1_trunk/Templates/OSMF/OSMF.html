@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+  <head>
+    <title>OSMF Player</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  	<script type="text/javascript" src="scripts/swfobject.js"></script>
+  	<script type="text/javascript" src="scripts/ParsedQueryString.js"></script>
+    <script type="text/javascript">
+
+    		// Collect query parameters in an object that we can
+    		// forward to SWFObject:
+
+    		var pqs = new ParsedQueryString();
+    		var parameterNames = pqs.params(false);
+    		var parameters =
+    			{	id: "1"
+    			,	configuration: "assets/configuration.xml"
+    			,	url: "http://mediapm.edgesuite.net/osmf/content/test/logo_animated.flv"
+    			,	backgroundColor: "0x000000"
+    			,	autoHideControlBar: "false"
+    			,	autoSwitchQuality: "true"
+    			,	autoPlay: "true"
+    			};
+
+    		for (var i=0; i<parameterNames.length; i++)
+    		{
+    			var parameterName = parameterNames[i];
+    			parameters[parameterName]
+    				=	pqs.param(parameterName)
+    				||	parameters[parameterName];
+    		}
+
+    		// Embed the player SWF:
+
+    		swfobject.embedSWF
+				( "SQUEEZE_PLAYER_PLACE_HOLDER"
+				, "player"
+				, "640", "360"
+				, "10.0.0"
+				, {}
+				, parameters
+				, { allowFullScreen: "true" }
+				, { name: "OSMF Player" }
+				);
+
+     </script>
+  	<style type="text/css">
+	<!--
+	.Verdana {
+		font-family: Verdana, Geneva, sans-serif;
+	}
+	-->
+	</style>
+ 	</head>
+	<body>
+	<table width="100%" border="0" cellspacing="5">
+  <tr>
+    <td width="43"><img src="images/adobe-lq.png" alt="" width="43" height="72" /></td>
+    <td width="320" class="Verdana">OSMF Player</td>
+    <td width="262"><img src="images/osmf_horizontal_red.png" width="262" height="57"/></td>
+    <td width="*"></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellspacing="5">
+  <tr>
+    <td>
+     <div id="player">
+      <p>Alternative content</p>
+    </div>
+    </td>
+  </tr>
+  <tr>
+    <td><p>Click on one of the links below to have it loaded, or use the eject button on the player to enter a URL by hand:</p>
+    <p>
+    <script type="text/javascript">
+
+    	// Construct the HTML required to reload with any of the
+		// listed media links:
+
+		var linkingCode = "";
+		var links = 	[ "SQUEEZE_URL_PLACE_HOLDER" ];
+
+		for (var i=0; i<links.length; i++)
+		{
+			var link = links[i];
+			linkingCode = linkingCode
+				+ '<a href="SQUEEZE_HTMLPAGE_PLACE_HOLDER?url='
+				+ encodeURI(link)
+				+ '">'
+				+ link
+				+ '</a><br/>';
+		}
+
+		document.write(linkingCode);
+	</script>
+	</p>
+	</td>
+  </tr>
+</table>
+<p>
+This page is a sample page that can help enable Adobe HTTP Dynamic Streaming for video on demand
+content.
+</p>
+<br>
+<b>Files that are part of this Squeeze output:</b>
+<ul>
+<li>file: SQUEEZE_HTMLPAGE_PLACE_HOLDER</li>
+<li>file: SQUEEZE_PLAYER_PLACE_HOLDER</li>
+<li>folder: "images"</li>
+<li>folder: "scripts"</li>
+<li>folder: "assets"</li>
+<li>& all Adobe HTTP Dynamic Streaming-ready fragmented files and manifests created by Squeeze</li>
+</ul>
+
+<p>
+For more information about OSMF Player, see OSMFReadMe.txt and
+<a href="http://www.adobe.com/products/httpdynamicstreaming/" target=_blank>Adobe HTTP Dynamic Streaming</a>.
+</p>
+  </body>
+</html>

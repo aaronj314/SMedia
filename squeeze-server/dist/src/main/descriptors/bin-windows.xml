@@ -1,0 +1,107 @@
+<assembly>
+
+	<id>bin-windows</id>
+
+	<formats>
+		<format>zip</format>
+	</formats>
+
+	<fileSets>
+
+		<!-- Expanded Karaf Standard Distribution -->
+		<fileSet>
+			<directory>target-win/dependencies/apache-karaf-2.2.4</directory>
+			<outputDirectory>/</outputDirectory>
+			<excludes>
+				<exclude>**/demos/**</exclude>
+				<exclude>bin/**</exclude>
+				<exclude>etc/system.properties</exclude>
+				<exclude>etc/custom.properties</exclude>
+				<exclude>etc/jre.properties</exclude>
+				<exclude>etc/users.properties</exclude>
+				<exclude>etc/org.apache.karaf.features.cfg</exclude>
+				<exclude>etc/org.ops4j.pax.logging.cfg</exclude>
+				<exclude>LICENSE</exclude>
+				<exclude>NOTICE</exclude>
+				<exclude>README</exclude>
+				<exclude>RELEASE-NOTES</exclude>
+				<exclude>karaf-manual*.html</exclude>
+				<exclude>karaf-manual*.pdf</exclude>
+			</excludes>
+		</fileSet>
+
+		<!-- Copy over bin/* separately to get the correct file mode -->
+		<fileSet>
+			<directory>target-win/dependencies/apache-karaf-2.2.4</directory>
+			<outputDirectory>/</outputDirectory>
+			<includes>
+				<include>bin/admin.bat</include>
+				<include>bin/karaf.bat</include>
+				<include>bin/start.bat</include>
+				<include>bin/stop.bat</include>
+			</includes>
+		</fileSet>
+
+		<!-- Copy over jar files -->
+		<fileSet>
+			<directory>target-win/dependencies</directory>
+			<includes>
+				<include>sqzsrv-branding.jar</include>
+			</includes>
+			<outputDirectory>/lib/</outputDirectory>
+		</fileSet>
+
+		<fileSet>
+			<directory>src/main/distribution</directory>
+			<outputDirectory>/</outputDirectory>
+			<excludes>
+				<exclude>windows/**</exclude>
+				<exclude>bin/**</exclude>
+			</excludes>
+		</fileSet>
+		<fileSet>
+			<directory>src/main/distribution/etc/windows/etc</directory>
+			<outputDirectory>/etc</outputDirectory>
+		</fileSet>
+		<fileSet>
+			<directory>src/main/distribution/etc/windows/bin</directory>
+			<outputDirectory>/bin</outputDirectory>
+		</fileSet>
+		<fileSet>
+			<directory>target-win/classes/etc</directory>
+			<outputDirectory>/etc/</outputDirectory>
+			<lineEnding>dos</lineEnding>
+		</fileSet>
+
+		<fileSet>
+			<directory>target-win/features-repo</directory>
+			<outputDirectory>/system</outputDirectory>
+		</fileSet>
+		<!-- copy smicomp windows version -->
+		<fileSet>
+			<!-- <directory>/Users/aaron/Dev/sswinsmicomp_8.1_release</directory> -->
+			<directory>C:\squeeze1.7\trial_smicomp_8.5.0.19</directory>
+			<outputDirectory>/squeeze/windows</outputDirectory>
+		</fileSet>
+	</fileSets>
+
+	<files>
+		<file>
+			<source>src/main/resources/features-bus.xml</source>
+			<outputDirectory>/system/com/smedia/sqzserver/features/1.7.0</outputDirectory>
+			<destName>features-1.7.0-features.xml</destName>
+			<lineEnding>dos</lineEnding>
+		</file>
+		<file>
+			<source>src/main/distribution/windows/bin/startSqueezeServer.bat</source>
+			<outputDirectory>/bin/</outputDirectory>
+			<lineEnding>dos</lineEnding>
+		</file>
+		<file>
+			<source>src/main/distribution/windows/bin/debugSqueezeServer.bat</source>
+			<outputDirectory>/bin/</outputDirectory>
+			<lineEnding>dos</lineEnding>
+		</file>
+	</files>
+
+</assembly>
